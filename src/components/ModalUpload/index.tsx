@@ -65,15 +65,6 @@ export const ModalUpload = (props: IProps) => {
     }
   };
 
-  const validateFileSize = (file: any) => {
-    const maxSize = 100 * 1024; // 100KB
-    if (file.size > maxSize) {
-      message.error('File size must be no more than 100KB');
-      return Upload.LIST_IGNORE;
-    }
-    return true;
-  };
-
   const currencyFormatter = (value: any) => {
     return `Rp ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   };
