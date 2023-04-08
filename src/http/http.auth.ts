@@ -5,7 +5,7 @@ import { deleteCookie, getCookie } from 'cookies-next';
 import { NextResponse } from 'next/server';
 
 const httpAuth = axios.create({
-  baseURL: 'http://localhost:3000/pub',
+  baseURL: 'http://3.26.242.59:3000/pub',
   timeout: 5000,
   headers: {
     'Access-Control-Allow-Origin': '*',
