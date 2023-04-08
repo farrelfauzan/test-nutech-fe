@@ -48,7 +48,7 @@ httpProduct.interceptors.response.use(
     if (status === 401) {
       if (status === 403) {
         deleteCookie('USER_TOKEN');
-        NextResponse.redirect('http://3.26.242.59:30001/auth/login');
+        NextResponse.redirect('http://3.26.242.59:3001/auth/login');
       }
     }
     return Promise.reject(error);
