@@ -43,14 +43,14 @@ export const ModalUpload = (props: IProps) => {
       handleCancel();
     });
   };
-  const handleUploadChange = (info: any) => {
-    if (info.file.status === 'done') {
-      message.success(`${info.file.name} uploaded successfully`);
-      setFile(info.fileList[0]);
-    } else if (info.file.status === 'error') {
-      message.error(`${info.file.name} upload failed.`);
-    }
-  };
+  // const handleUploadChange = (info: any) => {
+  //   if (info.file.status === 'done') {
+  //     message.success(`${info.file.name} uploaded successfully`);
+  //     setFile(info.fileList[0]);
+  //   } else if (info.file.status === 'error') {
+  //     message.error(`${info.file.name} upload failed.`);
+  //   }
+  // };
 
   const handleKeyPress = (e: any) => {
     // Prevent input of non-numeric characters
