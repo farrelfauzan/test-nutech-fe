@@ -5,7 +5,7 @@ import { deleteCookie, getCookie } from 'cookies-next';
 import { NextResponse } from 'next/server';
 
 const httpAuth = axios.create({
-  baseURL: 'http://3.104.54.2:3000/pub',
+  baseURL: 'http://localhost:3000/pub',
   timeout: 5000,
   headers: {
     'Access-Control-Allow-Origin': '*',
@@ -46,7 +46,7 @@ httpAuth.interceptors.response.use(
     if (status === 401) {
       if (status === 403) {
         deleteCookie('USER_TOKEN');
-        NextResponse.redirect('http://localhost:3000/auth/login');
+        NextResponse.redirect('http://localhost:3001/auth/login');
       }
     }
     return Promise.reject(error);

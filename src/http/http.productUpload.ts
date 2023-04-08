@@ -7,7 +7,7 @@ import { NextResponse } from 'next/server';
 const token = getCookie('USER_TOKEN');
 
 const httpProductUpload = axios.create({
-  baseURL: 'http://3.104.54.2:3000/api',
+  baseURL: 'http://localhost:3000/api',
   timeout: 5000,
   headers: {
     'Access-Control-Allow-Origin': '*',
@@ -48,7 +48,7 @@ httpProductUpload.interceptors.response.use(
     if (status === 401) {
       if (status === 403) {
         deleteCookie('USER_TOKEN');
-        NextResponse.redirect('http://localhost:3000/auth/login');
+        NextResponse.redirect('http://localhost:3001/auth/login');
       }
     }
     return Promise.reject(error);
