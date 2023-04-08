@@ -7,6 +7,9 @@ module.exports = withBundleAnalyzer({
   eslint: {
     dirs: ['.'],
   },
+  images: {
+    domains: ['3.25.71.80'], // Add localhost to the allowed image domains
+  },
   poweredByHeader: false,
   trailingSlash: true,
   basePath: '',
