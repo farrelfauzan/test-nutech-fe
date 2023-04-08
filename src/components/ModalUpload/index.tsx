@@ -1,13 +1,16 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable tailwindcss/no-custom-classname */
-import { UploadOutlined } from '@ant-design/icons';
+import { InboxOutlined } from '@ant-design/icons';
+import type { UploadProps } from 'antd';
 import { Button, Form, Input, InputNumber, message, Modal, Upload } from 'antd';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { GetAllProductApi } from '@/services/product.service';
 import { UploadProductApi } from '@/services/upload.service';
+
+const { Dragger } = Upload;
 
 type IProps = {
   open: any;
@@ -78,6 +81,29 @@ export const ModalUpload = (props: IProps) => {
     return value.replace(/Rp\s?|(\.*)/g, '');
   };
 
+  const propsUpload: UploadProps = {
+    name: 'file',
+    multiple: false,
+    maxCount: 1,
+    beforeUpload(file, _FileList) {
+      // Check file type
+      const acceptedTypes = ['image/jpeg', 'image/png'];
+      const isAccepted = acceptedTypes.includes(file.type);
+      if (!isAccepted) {
+        message.error('You can only upload JPEG or PNG files');
+      }
+      return isAccepted ? validateFileSize(file) : Upload.LIST_IGNORE;
+    },
+    onChange(info) {
+      if (info.file.status === 'done') {
+        message.success(`${info.file.name} uploaded successfully`);
+        setFile(info.fileList[0]);
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} upload failed.`);
+      }
+    },
+  };
+
   return (
     <div className="mt-32">
       <Modal
@@ -102,29 +128,15 @@ export const ModalUpload = (props: IProps) => {
                 // Add additional validation rules if needed
               ]}
             >
-              <Upload
-                name="file"
-                // action="/upload"
-                onChange={handleUploadChange}
-                multiple={false}
-                beforeUpload={(file) => {
-                  // Check file type
-                  const acceptedTypes = ['image/jpeg', 'image/png'];
-                  const isAccepted = acceptedTypes.includes(file.type);
-                  if (!isAccepted) {
-                    message.error('You can only upload JPEG or PNG files');
-                  }
-                  return isAccepted
-                    ? validateFileSize(file)
-                    : Upload.LIST_IGNORE;
-                }}
-                accept=".jpeg,.jpg,.png"
-                maxCount={1}
-              >
-                <Button className="flex items-center" icon={<UploadOutlined />}>
-                  Select Your File
-                </Button>
-              </Upload>
+              <Dragger {...propsUpload}>
+                <p className="ant-upload-drag-icon">
+                  <InboxOutlined />
+                </p>
+                <p className="ant-upload-text">
+                  Click or drag file to this area to upload
+                </p>
+                <p className="ant-upload-hint">Support only .jpg and .png</p>
+              </Dragger>
             </Form.Item>
             <Form.Item name="name" label="Name">
               <Input />
