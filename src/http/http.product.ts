@@ -7,12 +7,12 @@ import { NextResponse } from 'next/server';
 const token = getCookie('USER_TOKEN');
 
 const httpProduct = axios.create({
-  baseURL: 'http://3.26.242.59:3000/api',
+  baseURL: 'http://3.27.90.80:3000/api',
   timeout: 5000,
   headers: {
     'Access-Control-Allow-Origin': '*',
     'x-token': token,
-    'Content-Type': 'multipart/json',
+    'Content-Type': 'application/json',
   },
 });
 
@@ -22,8 +22,8 @@ httpProduct.interceptors.request.use(
     if (token) {
       // config.headers.Authorization = `Bearer ${token}`;
       config.headers.Authorization = `${token}`;
-      config.headers['Content-Type'] = 'multipart/json';
-      config.headers.Accept = 'multipart/json';
+      config.headers['Content-Type'] = 'application/json';
+      config.headers.Accept = 'application/json';
     }
     // Do something before request is sent
     return config;
@@ -48,7 +48,7 @@ httpProduct.interceptors.response.use(
     if (status === 401) {
       if (status === 403) {
         deleteCookie('USER_TOKEN');
-        NextResponse.redirect('http://localhost:3001/auth/login');
+        NextResponse.redirect('http://3.26.242.59:30001/auth/login');
       }
     }
     return Promise.reject(error);

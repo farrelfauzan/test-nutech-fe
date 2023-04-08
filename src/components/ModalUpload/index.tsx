@@ -105,7 +105,6 @@ export const ModalUpload = (props: IProps) => {
               <Upload
                 name="file"
                 // action="/upload"
-                method="POST"
                 onChange={handleUploadChange}
                 multiple={false}
                 beforeUpload={(file) => {
