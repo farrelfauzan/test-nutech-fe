@@ -95,6 +95,7 @@ export const ModalUpload = (props: IProps) => {
       return isAccepted ? validateFileSize(file) : Upload.LIST_IGNORE;
     },
     onChange(info) {
+      console.log(info);
       if (info.file.status === 'done') {
         message.success(`${info.file.name} uploaded successfully`);
         setFile(info.fileList[0]);
