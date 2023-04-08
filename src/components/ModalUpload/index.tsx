@@ -20,8 +20,10 @@ type IProps = {
 export const ModalUpload = (props: IProps) => {
   const dispatch = useDispatch();
   const [FormUpload] = Form.useForm();
-  const [file, setFile] = useState<any>('');
-  console.log(file);
+  const [state, setState] = useState<any>({
+    file: null,
+  });
+  console.log(state.file);
   const handleCancel = () => {
     props.setOpen({
       ...props.open,
@@ -31,7 +33,7 @@ export const ModalUpload = (props: IProps) => {
   const onFinish = () => {
     FormUpload.validateFields().then((val) => {
       const payload = {
-        photo: file.originFileObj,
+        photo: state.file,
         name: val.name,
         buyPrice: val.buyPrice,
         sellPrice: val.sellPrice,
@@ -85,23 +87,20 @@ export const ModalUpload = (props: IProps) => {
     name: 'file',
     multiple: false,
     maxCount: 1,
-    beforeUpload(file, _FileList) {
-      // Check file type
-      const acceptedTypes = ['image/jpeg', 'image/png'];
-      const isAccepted = acceptedTypes.includes(file.type);
-      if (!isAccepted) {
-        message.error('You can only upload JPEG or PNG files');
+    accept: '.jpg, .png', // Accept only .jpg and .png files
+    beforeUpload(file) {
+      // Validate file size
+      const maxSize = 100 * 1024; // 100KB
+      if (file.size > maxSize) {
+        message.error('File size must be no more than 100KB');
+        return Upload.LIST_IGNORE;
       }
-      return isAccepted ? validateFileSize(file) : Upload.LIST_IGNORE;
+      return true;
     },
     onChange(info) {
-      console.log(info);
-      if (info.file.status === 'done') {
-        message.success(`${info.file.name} uploaded successfully`);
-        setFile(info.fileList[0]);
-      } else if (info.file.status === 'error') {
-        message.error(`${info.file.name} upload failed.`);
-      }
+      setState({
+        file: info.fileList[0]?.originFileObj,
+      });
     },
   };
 
@@ -121,22 +120,26 @@ export const ModalUpload = (props: IProps) => {
           <Form layout="vertical" form={FormUpload} onFinish={onFinish}>
             <Form.Item
               name="file"
-              label="Upload Photo"
-              valuePropName="fileList"
-              getValueFromEvent={(e) => e && e.fileList}
               rules={[
-                { required: true, message: 'Please upload a file' },
-                // Add additional validation rules if needed
+                {
+                  required: true,
+                  message: 'Please input file',
+                },
               ]}
             >
               <Dragger {...propsUpload}>
-                <p className="ant-upload-drag-icon">
-                  <InboxOutlined />
-                </p>
-                <p className="ant-upload-text">
-                  Click or drag file to this area to upload
-                </p>
-                <p className="ant-upload-hint">Support only .jpg and .png</p>
+                <div className="px-10">
+                  <p className="ant-upload-drag-icon">
+                    <InboxOutlined />
+                  </p>
+                  <p className="ant-upload-text">
+                    Click or drag file to this area to upload
+                  </p>
+                  <p className="ant-upload-hint">
+                    Support for a single or bulk upload. Strictly prohibit from
+                    uploading company data or other band files
+                  </p>
+                </div>
               </Dragger>
             </Form.Item>
             <Form.Item name="name" label="Name">
