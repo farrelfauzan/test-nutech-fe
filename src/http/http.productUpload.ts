@@ -7,7 +7,7 @@ import { NextResponse } from 'next/server';
 const token = getCookie('USER_TOKEN');
 
 const httpProductUpload = axios.create({
-  baseURL: 'http://localhost:8080/api',
+  baseURL: 'http://3.26.242.59:3000/api',
   timeout: 5000,
   headers: {
     'Access-Control-Allow-Origin': '*',
