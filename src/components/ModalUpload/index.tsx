@@ -40,9 +40,11 @@ export const ModalUpload = (props: IProps) => {
         stockLeft: val.stockLeft,
       };
       UploadProductApi(payload);
-      GetAllProductApi(dispatch);
-      // window.location.reload();
-      handleCancel();
+      setTimeout(() => {
+        GetAllProductApi(dispatch);
+        window.location.reload();
+        handleCancel();
+      }, 3000);
     });
   };
   // const handleUploadChange = (info: any) => {

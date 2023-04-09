@@ -18,11 +18,13 @@ export const ModalDelete = (props: IProps) => {
     props.selectedRow.map((item: any) => {
       return DeleteProductApi(item.id);
     });
-    props.setOpen({
-      ...props.open,
-      openDeleteModal: false,
-    });
-    window.location.reload();
+    setTimeout(() => {
+      props.setOpen({
+        ...props.open,
+        openDeleteModal: false,
+      });
+      window.location.reload();
+    }, 3000);
   };
 
   const handleCancel = () => {
