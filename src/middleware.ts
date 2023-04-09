@@ -6,7 +6,7 @@ import { NextResponse } from 'next/server';
 export function middleware(req: NextRequest) {
   const token: any = req.cookies.get('USER_TOKEN');
   if (req.nextUrl.pathname === '/auth/login/' && token) {
-    return NextResponse.redirect('http://3.26.242.59:3001//data/management');
+    return NextResponse.redirect('http://3.26.242.59:3001/data/management');
   }
   if (req.nextUrl.pathname === '/') {
     return NextResponse.redirect('http://3.26.242.59:3001/auth/login');
