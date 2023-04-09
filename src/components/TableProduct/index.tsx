@@ -95,7 +95,7 @@ const TableProduct = (props: IProps) => {
             onClick={() => {
               setState({
                 open: true,
-                imageUrl: `http://3.26.242.59:3000/uploads/${record.photo}`,
+                imageUrl: `http://3.27.90.80:3000/uploads/${record.photo}`,
               });
             }}
             className="cursor-pointer text-blue-500 hover:underline"

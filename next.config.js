@@ -8,7 +8,7 @@ module.exports = withBundleAnalyzer({
     dirs: ['.'],
   },
   images: {
-    domains: ['3.26.242.59'], // Add localhost to the allowed image domains
+    domains: ['3.27.90.80'], // Add localhost to the allowed image domains
   },
   poweredByHeader: false,
   trailingSlash: true,
