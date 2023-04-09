@@ -41,7 +41,7 @@ export const ModalUpload = (props: IProps) => {
       };
       UploadProductApi(payload);
       GetAllProductApi(dispatch);
-      window.location.reload();
+      // window.location.reload();
       handleCancel();
     });
   };
@@ -77,6 +77,7 @@ export const ModalUpload = (props: IProps) => {
   const propsUpload: UploadProps = {
     name: 'file',
     multiple: false,
+    action: '/api/noop',
     maxCount: 1,
     accept: '.jpg, .png', // Accept only .jpg and .png files
     beforeUpload(file) {
